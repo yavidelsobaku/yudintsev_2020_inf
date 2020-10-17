@@ -2,6 +2,7 @@ import pygame
 from pygame.draw import *
 from random import randint
 import time
+
 pygame.init()
 
 FPS = 1
@@ -44,13 +45,19 @@ k2 = 0
 d1 = 0
 d2 = 0
 n = 0
-while not finished:
+
+
+while finished == False:
     strike = False
     clock.tick(FPS)
     k = 0
     new_ball()
     new_ball1()
     screen.fill(BLACK)
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
 
     if strike == False:
         while k <= 10 and strike == False:
@@ -149,6 +156,7 @@ while not finished:
                 if event.type == pygame.QUIT:
                     print(n)
                     finished = True
+                    strike = True
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
                         if (abs(event.pos[0] - x))^2 + (abs(event.pos[1] - y))^2 <= r:
@@ -157,9 +165,7 @@ while not finished:
                         if (abs(event.pos[0] - a))^2 + (abs(event.pos[1] - b))^2 <= c:
                             n += 1
                             strike = True
-    else: break
-#leaving the game
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
+    else:
+        break
+        pygame.quit()
+
